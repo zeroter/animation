@@ -7,8 +7,8 @@ interface RightSettingProps {
 }
 const RightSetting: React.FC<RightSettingProps> = (props) => {
   const items = [
-    { type: 'fadeIn', label: 'Fade in' },
-    { type: 'fadeLeft', label: 'Fade left' },
+    { type: 'fade', label: 'Fade' },
+    { type: 'slide', label: 'Slide' },
     { type: 'flip', label: 'Flip' }
   ]
 
