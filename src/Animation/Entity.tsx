@@ -32,11 +32,26 @@ const textList = [
   '257 people bought in the last 24 hours',
   '36 people rated 5 stars in the last 24 hours'
 ]
+//进场动画列表
+const animationEnterList = {
+  slide: 'animate__slideInLeft',
+  flip: 'animate__flipInX',
+  fade: 'animate__fadeIn',
+  flex: 'animate__flexGrow'
+}
+//退场动画列表
+const animationLeaveList = {
+  slide: 'animate__slideOutLeft',
+  flip: 'animate__flipOutX',
+  fade: 'animate__fadeOut',
+  flex: 'animate__flexShrink'
+}
 
 const Entity: React.FC<EntityProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null)
   const timer = useRef<timerType>({})
   const [textKey, setTextKey] = useState<number>(0)
+  const [width, setWidth] = useState<number>(0)
   const timeout = useMemo(() => {
     return props.interval * 1000 + delay
   }, [props.interval])
@@ -45,7 +60,7 @@ const Entity: React.FC<EntityProps> = (props) => {
   const switchToLeave = useCallback(
     (directExit?: boolean) => {
       if (!ref.current) return
-      ref.current!.classList.remove('animate__slideInLeft', 'animate__flipInX', 'animate__fadeIn')
+      Object.values(animationEnterList).forEach((item) => ref.current!.classList.remove(item))
       ref.current!.classList.add(getAnimationClass(props.state, 'leave'))
 
       if (directExit) return
@@ -60,7 +75,7 @@ const Entity: React.FC<EntityProps> = (props) => {
   const switchToEnter = useCallback(() => {
     if (!ref.current) return
     setTextKey((key) => (key + 1) % textList.length)
-    ref.current!.classList.remove('animate__slideOutLeft', 'animate__flipOutX', 'animate__fadeOut')
+    Object.values(animationLeaveList).forEach((item) => ref.current!.classList.remove(item))
     ref.current!.classList.add(getAnimationClass(props.state, 'enter'))
     timer.current.enter = setTimeout(() => {
       switchToLeave()
@@ -108,39 +123,51 @@ const Entity: React.FC<EntityProps> = (props) => {
   }, [switchToLeave, timeout])
 
   return (
-    <AnimationWrapper interval={props.interval} distance={props.position.left}>
-      <Wrapper
-        ref={ref}
-        className={classNames('animate__animated animation-duration-auto', getAnimationClass(props.state, 'enter'))}
+    <AnimationWrapper interval={props.interval} distance={props.position.left} width={width}>
+      <PositionWrapper
         style={{
           bottom: props.position.bottom,
           left: props.position.left
         }}
       >
-        <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
-        <div className="content">{textList[textKey]}</div>
-      </Wrapper>
+        <CenterWrapper style={{ width: `calc(100vw - ${props.position.left}px)` }}>
+          <Wrapper ref={ref} className={classNames('animate__animated animation-duration-auto', getAnimationClass(props.state, 'enter'))}>
+            <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
+            <div
+              className="content"
+              ref={(e) => {
+                if (e) {
+                  setWidth(e.getBoundingClientRect().width + 48)
+                }
+              }}
+            >
+              {textList[textKey]}
+            </div>
+          </Wrapper>
+        </CenterWrapper>
+      </PositionWrapper>
     </AnimationWrapper>
   )
 }
 
 const getAnimationClass = (state: animationType, mode: 'enter' | 'leave') => {
-  const animationEnterList = {
-    slide: 'animate__slideInLeft',
-    flip: 'animate__flipInX',
-    fade: 'animate__fadeIn'
-  }
-
-  const animationLeaveList = {
-    slide: 'animate__slideOutLeft',
-    flip: 'animate__flipOutX',
-    fade: 'animate__fadeOut'
-  }
-
   return mode === 'enter' ? animationEnterList[state] : animationLeaveList[state]
 }
 
-const AnimationWrapper = styled.div<{ interval: number; distance: number }>`
+const PositionWrapper = styled.div`
+  position: fixed;
+  z-index: 999999999;
+  height: 40px;
+`
+
+const CenterWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const AnimationWrapper = styled.div<{ interval: number; distance: number; width: number }>`
   ${({ interval }) => {
     return `
       .animation-duration-auto {
@@ -149,7 +176,7 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number }>`
     `
   }}
 
-  ${({ distance }) => {
+  ${({ distance, width }) => {
     return `
       @-webkit-keyframes slideInLeft {
         from {
@@ -199,28 +226,83 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number }>`
           transform: translate3d(calc(-100% - ${distance}px), 0, 0);
         }
       }
+      @-webkit-keyframes flexGrow {
+        from {
+          width: 40px;
+          opacity: 0;
+        }
+        40% {
+          width: 40px;
+          opacity: 1;
+        }
+
+        to {
+          width: ${width}px;
+        }
+      }
+      @keyframes flexGrow {
+        from {
+          width: 40px;
+          opacity: 0;
+        }
+        40% {
+          width: 40px;
+          opacity: 1;
+        }
+
+        to {
+          width: ${width}px;
+        }
+      }
+      @-webkit-keyframes flexShrink {
+        from {
+          width: ${width}px;
+        }
+
+        60% {
+          width: 40px;
+          opacity: 1;
+        }
+
+        to {
+          width: 40px;
+          opacity: 0;
+        }
+      }
+      @keyframes flexShrink {
+        from {
+          width: ${width}px;
+        }
+
+        60% {
+          width: 40px;
+          opacity: 1;
+        }
+
+        to {
+          width: 40px;
+          opacity: 0;
+        }
+      }
     `
   }}
 `
 
 const Wrapper = styled.div`
-  position: fixed;
-  z-index: 999999999;
-  bottom: 100px;
-  left: 50px;
-  height: 40px;
-  border-radius: 40px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
-  gap: 8px;
+  border-radius: 40px;
   .img {
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
     border-radius: 40px;
-    margin-left: 10px;
+    margin: 0 10px;
   }
   .content {
     font-size: 12px;

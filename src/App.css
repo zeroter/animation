@@ -183,3 +183,13 @@
   -webkit-animation-name: fadeOut;
   animation-name: fadeOut;
 }
+
+.animate__flexGrow {
+  -webkit-animation-name: flexGrow;
+  animation-name: flexGrow;
+}
+
+.animate__flexShrink {
+  -webkit-animation-name: flexShrink;
+  animation-name: flexShrink;
+}

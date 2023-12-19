@@ -3,7 +3,7 @@ import RightSetting from './RightSetting'
 import Entity, { animationType } from './Entity'
 
 const Animation = () => {
-  const [state, setState] = useState<string>('slide')
+  const [state, setState] = useState<string>('flex')
   const [interval, setInterval] = useState<number>(1)
   // const [isSmall, setIsSmall] = useState<boolean>(false)
   const [position, setPosition] = useState<{ left: number; bottom: number }>({
