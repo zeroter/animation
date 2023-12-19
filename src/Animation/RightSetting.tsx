@@ -3,7 +3,9 @@ import styled from 'styled-components'
 
 interface RightSettingProps {
   state: string
+  interval: number
   setState: (state: string) => void
+  setInterval: (interval: number) => void
 }
 const RightSetting: React.FC<RightSettingProps> = (props) => {
   const items = [
@@ -28,9 +30,21 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
         </div>
       ))}
       <div className="animation-rate">
-        <button>-1</button>
-        <div>Rate</div>
-        <button>+1</button>
+        <button
+          onClick={() => {
+            props.setInterval(Math.max(1, props.interval - 0.25))
+          }}
+        >
+          -0.25
+        </button>
+        <div>Rate({props.interval})</div>
+        <button
+          onClick={() => {
+            props.setInterval(props.interval + 0.25)
+          }}
+        >
+          +0.25
+        </button>
       </div>
     </Wrapper>
   )
@@ -38,7 +52,7 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
 
 const Wrapper = styled.div`
   position: fixed;
-  width: 100px;
+  width: 128px;
   height: 150px;
   border-radius: 8px;
 
@@ -54,7 +68,7 @@ const Wrapper = styled.div`
   gap: 8px;
 
   .item {
-    width: 80px;
+    width: 100px;
     height: 32px;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -86,7 +100,8 @@ const Wrapper = styled.div`
     font-size: 12px;
     gap: 8px;
     button {
-      width: 20px;
+      width: 34px;
+      font-size: 12px;
       background-color: #ffffff;
       border: 1px solid #409eff;
       border-radius: 4px;

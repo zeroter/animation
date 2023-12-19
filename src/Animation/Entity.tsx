@@ -84,7 +84,7 @@ const Entity: React.FC<EntityProps> = (props) => {
 
   return (
     <AnimationWrapper interval={props.interval}>
-      <Wrapper ref={ref} className={classNames('animate__animated', getAnimationClass(props.state, 'enter'))}>
+      <Wrapper ref={ref} className={classNames('animate__animated animation-duration-auto', getAnimationClass(props.state, 'enter'))}>
         <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
         <div className="content">bought 32 min ago</div>
       </Wrapper>
@@ -111,7 +111,9 @@ const getAnimationClass = (state: animationType, mode: 'enter' | 'leave') => {
 const AnimationWrapper = styled.div<{ interval: number }>`
   ${({ interval }) => {
     return `
-      animation-duration: ${interval}s;
+      .animation-duration-auto {
+        animation-duration: ${interval}s;
+      }
     `
   }}
 `
