@@ -21,7 +21,7 @@ const Animation = () => {
 
   return (
     <div>
-      <Entity state={state as animationType} interval={interval}></Entity>
+      <Entity state={state as animationType} interval={interval} position={position}></Entity>
       <RightSetting
         position={position}
         setPosition={setPosition}
