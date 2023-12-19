@@ -2,10 +2,26 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import VitePluginStyleInject from 'vite-plugin-style-inject'
 import { resolve } from 'path'
+import vitePluginBanner from 'vite-plugin-banner'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePluginStyleInject()],
+  plugins: [
+    react(),
+    VitePluginStyleInject(),
+    vitePluginBanner({
+      content: `
+      // ==UserScript==
+      // @name         New Userscript
+      // @namespace    https://stay.app/
+      // @version      0.1
+      // @description  Template userscript created by Stay
+      // @author       You
+      // @match        *://*/*
+      // @grant        none
+      // ==/UserScript==`
+    })
+  ],
   build: {
     rollupOptions: {
       input: {
