@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-export type animationType = 'slide' | 'flip' | 'fade'
+export type animationType = 'slide' | 'flip' | 'fade' | 'flex'
 
 type timerType = {
   enter?: any
@@ -130,7 +130,7 @@ const Entity: React.FC<EntityProps> = (props) => {
           left: props.position.left
         }}
       >
-        <CenterWrapper style={{ width: `calc(100vw - ${props.position.left}px)` }}>
+        <CenterWrapper style={{ width: props.state === 'flex' ? `calc(100vw - ${props.position.left}px)` : undefined }}>
           <Wrapper ref={ref} className={classNames('animate__animated animation-duration-auto', getAnimationClass(props.state, 'enter'))}>
             <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
             <div
@@ -233,11 +233,12 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
         }
         40% {
           width: 40px;
-          opacity: 1;
+          opacity: 0.6;
         }
 
         to {
           width: ${width}px;
+          opacity: 1;
         }
       }
       @keyframes flexGrow {
@@ -247,21 +248,23 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
         }
         40% {
           width: 40px;
-          opacity: 1;
+          opacity: 0.4;
         }
 
         to {
           width: ${width}px;
+          opacity: 1;
         }
       }
       @-webkit-keyframes flexShrink {
         from {
           width: ${width}px;
+          opacity: 1;
         }
 
         60% {
           width: 40px;
-          opacity: 1;
+          opacity: 0.6;
         }
 
         to {
@@ -272,11 +275,12 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
       @keyframes flexShrink {
         from {
           width: ${width}px;
+          opacity: 1;
         }
 
         60% {
           width: 40px;
-          opacity: 1;
+          opacity: 0.6;
         }
 
         to {

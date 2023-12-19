@@ -187,9 +187,11 @@
 .animate__flexGrow {
   -webkit-animation-name: flexGrow;
   animation-name: flexGrow;
+  animation-timing-function: cubic-bezier(0.82, -0.01, 0.17, 0.97);
 }
 
 .animate__flexShrink {
   -webkit-animation-name: flexShrink;
   animation-name: flexShrink;
+  animation-timing-function: cubic-bezier(0.82, -0.01, 0.17, 0.97);
 }
