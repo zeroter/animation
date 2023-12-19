@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
 import RightSetting from './RightSetting'
 import Entity, { animationType } from './Entity'
 
@@ -20,22 +19,13 @@ const Animation = () => {
   }, [])
 
   return (
-    <Wrapper style={{ backgroundImage: bgImage }}>
-      <img src={bgImage} />
+    <div style={{ backgroundImage: bgImage }}>
       <Entity state={state as animationType}></Entity>
       <RightSetting setState={setState} state={state}></RightSetting>
-    </Wrapper>
+    </div>
   )
 }
 
-const Wrapper = styled.div`
-  width: 100%;
-  min-height: 100vh;
 
-  img {
-    width: 100%;
-    overflow: hidden;
-  }
-`
 
 export default Animation
