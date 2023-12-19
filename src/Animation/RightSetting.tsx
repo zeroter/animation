@@ -48,6 +48,7 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
           +0.25
         </button>
       </div>
+
       <div className="position">
         <div
           onClick={() =>
@@ -59,28 +60,28 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
         >
           ↑
         </div>
-        <div className="position-lr">
-          <div
-            onClick={() =>
-              props.setPosition((position: any) => {
-                return Object.assign({}, position, { left: position.left - 5 })
-              })
-            }
-            className="item"
-          >
-            ←
-          </div>
-          <div
-            onClick={() =>
-              props.setPosition((position: any) => {
-                return Object.assign({}, position, { left: position.left + 5 })
-              })
-            }
-            className="item"
-          >
-            →
-          </div>
+
+        <div
+          onClick={() =>
+            props.setPosition((position: any) => {
+              return Object.assign({}, position, { left: position.left - 5 })
+            })
+          }
+          className="item"
+        >
+          ←
         </div>
+        <div
+          onClick={() =>
+            props.setPosition((position: any) => {
+              return Object.assign({}, position, { left: position.left + 5 })
+            })
+          }
+          className="item"
+        >
+          →
+        </div>
+
         <div
           onClick={() =>
             props.setPosition((position: any) => {
@@ -93,9 +94,7 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
         </div>
       </div>
       <div style={{ fontSize: 12 }} className="position-value">
-        left: {props.position.left}
-        <br />
-        bottom: {props.position.bottom}
+        left: {props.position.left}; bottom: {props.position.bottom}
       </div>
     </Wrapper>
   )
@@ -103,26 +102,27 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
 
 const Wrapper = styled.div`
   position: fixed;
-  min-width: 128px;
-  min-height: 150px;
+  width: 100%;
+  min-height: 20px;
   border-radius: 8px;
   z-index: 9999;
 
   box-shadow: 0 0 10px #aaa;
-  right: 10px;
-  bottom: 10px;
+  left: 0px;
+  top: 0px;
   background-color: #fff;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
-  padding: 16px 8px;
+  padding: 16px 4px;
+  flex-wrap: wrap;
 
   .item {
-    width: 100px;
-    height: 32px;
+    width: 50px;
+    height: 24px;
     border-radius: 4px;
     border: 1px solid #ccc;
     display: flex;
@@ -132,7 +132,7 @@ const Wrapper = styled.div`
     user-select: none;
     transition: all 0.3s;
     color: #444;
-    font-size: 13px;
+    font-size: 12px;
 
     &:hover {
       border-color: #409eff;
@@ -153,10 +153,11 @@ const Wrapper = styled.div`
     font-size: 12px;
     gap: 8px;
     button {
-      width: 34px;
+      width: 50px;
+      height: 20px;
       font-size: 12px;
-      background-color: #ffffff;
-      border: 1px solid #409eff;
+      background-color: #eee;
+      border: 1px solid #ccc;
       border-radius: 4px;
       cursor: pointer;
       transition: 0.3s;
@@ -170,7 +171,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
 
     .item {
