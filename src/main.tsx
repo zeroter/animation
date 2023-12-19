@@ -14,6 +14,8 @@ function createAnimation() {
   )
 }
 
-window.onload = () => {
-  createAnimation()
-}
+createAnimation()
+
+// window.onload = () => {
+//   createAnimation()
+// }
