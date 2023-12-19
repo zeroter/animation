@@ -18,6 +18,8 @@ interface EntityProps {
   }
 }
 
+const maxWidth = 500
+
 //动画结束后，显示时长，及滚动后静止时长
 const delay = 2000
 //文案列表
@@ -51,7 +53,6 @@ const Entity: React.FC<EntityProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null)
   const timer = useRef<timerType>({})
   const [textKey, setTextKey] = useState<number>(0)
-  const [width, setWidth] = useState<number>(0)
   const timeout = useMemo(() => {
     return props.interval * 1000 + delay
   }, [props.interval])
@@ -123,27 +124,17 @@ const Entity: React.FC<EntityProps> = (props) => {
   }, [switchToLeave, timeout])
 
   return (
-    <AnimationWrapper interval={props.interval} distance={props.position.left} width={width}>
+    <AnimationWrapper interval={props.interval} distance={props.position.left}>
       <PositionWrapper
         style={{
           bottom: props.position.bottom,
           left: props.position.left
         }}
       >
-        {/* <CenterWrapper style={{ width: props.state === 'flex' ? `calc(100vw - ${props.position.left}px)` : undefined }}> */}
         <CenterWrapper>
           <Wrapper ref={ref} className={classNames('animate__animated animation-duration-auto', getAnimationClass(props.state, 'enter'))}>
             <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
-            <div
-              className="content"
-              ref={(e) => {
-                if (e) {
-                  setWidth(e.getBoundingClientRect().width + 48)
-                }
-              }}
-            >
-              {textList[textKey]}
-            </div>
+            <div className="content">{textList[textKey]}</div>
           </Wrapper>
         </CenterWrapper>
       </PositionWrapper>
@@ -168,7 +159,7 @@ const CenterWrapper = styled.div`
   align-items: center;
 `
 
-const AnimationWrapper = styled.div<{ interval: number; distance: number; width: number }>`
+const AnimationWrapper = styled.div<{ interval: number; distance: number }>`
   ${({ interval }) => {
     return `
       .animation-duration-auto {
@@ -177,7 +168,7 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
     `
   }}
 
-  ${({ distance, width }) => {
+  ${({ distance }) => {
     return `
       @-webkit-keyframes slideInLeft {
         from {
@@ -233,19 +224,19 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
         }
 
         1% {
-          width:40px;
+          max-width:40px;
           transform: scale(0.1) rotate(360deg);
         }
 
 
         40% {
-          width: 40px;
+          max-width: 40px;
           transform: rotate(0deg);
           opacity: 1;
         }
 
         to {
-          width: ${width}px;
+          max-width: ${maxWidth}px;
           opacity: 1;
         }
       }
@@ -254,53 +245,53 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
           opacity: 0;
         }
         1% {
-          width:40px;
+          max-width: 40px;
           transform: scale(0.1) rotate(360deg);
         }
 
         40% {
-          width: 40px;
+          max-width: 40px;
           transform: scale(1) rotate(0deg);
           opacity: 1;
         }
 
         to {
-          width: ${width}px;
+          max-width:${maxWidth}px;
           opacity: 1;
         }
       }
       @-webkit-keyframes flexShrink {
         from {
-          width: ${width}px;
+          max-width: ${maxWidth}px;
           opacity: 1;
         }
 
         60% {
-          width: 40px;
+          max-width: 40px;
           opacity: 1;
           transform: scale(1) rotate(0deg);
         }
 
         to {
-          width: 40px;
+          max-width: 40px;
           opacity: 0;
           transform: scale(0.1) rotate(360deg);
         }
       }
       @keyframes flexShrink {
         from {
-          width: ${width}px;
+          max-width: ${maxWidth}px;
           opacity: 1;
         }
 
         60% {
-          width: 40px;
+          max-width: 40px;
           opacity: 1;
           transform: scale(1) rotate(0deg);
         }
 
         to {
-          width: 40px;
+          max-width: 40px;
           opacity: 0;
           transform: scale(0.1) rotate(360deg);
         }

@@ -14,11 +14,13 @@
 .animate__slideInLeft {
   -webkit-animation-name: slideInLeft;
   animation-name: slideInLeft;
+  animation-timing-function: cubic-bezier(0.68, 0.03, 0.36, 0.99);
 }
 
 .animate__slideOutLeft {
   -webkit-animation-name: slideOutLeft;
   animation-name: slideOutLeft;
+  animation-timing-function: cubic-bezier(0.68, 0.03, 0.36, 0.99);
 }
 
 /* 翻转 */
@@ -60,7 +62,6 @@
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
-    opacity: 0;
   }
 
   40% {
@@ -73,7 +74,6 @@
   60% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
-    opacity: 1;
   }
 
   80% {
@@ -120,13 +120,21 @@
   30% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
-    opacity: 1;
+  }
+
+  60% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 84deg) scaleX(1);
+    transform: perspective(400px) rotate3d(1, 0, 0, 84deg) scaleX(1);
+  }
+
+  90% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 84deg) scaleX(0.3);
+    transform: perspective(400px) rotate3d(1, 0, 0, 84deg) scaleX(0.3);
   }
 
   to {
-    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
-    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
-    opacity: 0;
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg) scaleX(0);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg) scaleX(0);
   }
 }
 .animate__flipOutX {
@@ -187,11 +195,11 @@
 .animate__flexGrow {
   -webkit-animation-name: flexGrow;
   animation-name: flexGrow;
-  animation-timing-function: cubic-bezier(0.82, -0.01, 0.17, 0.97);
+  animation-timing-function: cubic-bezier(0.67, 0.1, 0.32, 0.93);
 }
 
 .animate__flexShrink {
   -webkit-animation-name: flexShrink;
   animation-name: flexShrink;
-  animation-timing-function: cubic-bezier(0.82, -0.01, 0.17, 0.97);
+  animation-timing-function: cubic-bezier(0.67, 0.1, 0.32, 0.93);
 }

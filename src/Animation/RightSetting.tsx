@@ -14,8 +14,7 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
     { type: 'fade', label: 'Fade' },
     { type: 'slide', label: 'Slide' },
     { type: 'flip', label: 'Flip' },
-    { type: 'flex', label: 'Flex' },
-    { type: 'flex_center', label: 'Flex center' }
+    { type: 'flex', label: 'Flex' }
   ]
 
   return (
