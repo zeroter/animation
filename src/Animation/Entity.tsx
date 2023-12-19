@@ -130,7 +130,8 @@ const Entity: React.FC<EntityProps> = (props) => {
           left: props.position.left
         }}
       >
-        <CenterWrapper style={{ width: props.state === 'flex' ? `calc(100vw - ${props.position.left}px)` : undefined }}>
+        {/* <CenterWrapper style={{ width: props.state === 'flex' ? `calc(100vw - ${props.position.left}px)` : undefined }}> */}
+        <CenterWrapper>
           <Wrapper ref={ref} className={classNames('animate__animated animation-duration-auto', getAnimationClass(props.state, 'enter'))}>
             <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
             <div
@@ -228,12 +229,19 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
       }
       @-webkit-keyframes flexGrow {
         from {
-          width: 40px;
           opacity: 0;
         }
+
+        1% {
+          width:40px;
+          transform: scale(0.1) rotate(360deg);
+        }
+
+
         40% {
           width: 40px;
-          opacity: 0.6;
+          transform: rotate(0deg);
+          opacity: 1;
         }
 
         to {
@@ -243,12 +251,17 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
       }
       @keyframes flexGrow {
         from {
-          width: 40px;
           opacity: 0;
         }
+        1% {
+          width:40px;
+          transform: scale(0.1) rotate(360deg);
+        }
+
         40% {
           width: 40px;
-          opacity: 0.4;
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
         }
 
         to {
@@ -264,12 +277,14 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
 
         60% {
           width: 40px;
-          opacity: 0.6;
+          opacity: 1;
+          transform: scale(1) rotate(0deg);
         }
 
         to {
           width: 40px;
           opacity: 0;
+          transform: scale(0.1) rotate(360deg);
         }
       }
       @keyframes flexShrink {
@@ -280,12 +295,14 @@ const AnimationWrapper = styled.div<{ interval: number; distance: number; width:
 
         60% {
           width: 40px;
-          opacity: 0.6;
+          opacity: 1;
+          transform: scale(1) rotate(0deg);
         }
 
         to {
           width: 40px;
           opacity: 0;
+          transform: scale(0.1) rotate(360deg);
         }
       }
     `
