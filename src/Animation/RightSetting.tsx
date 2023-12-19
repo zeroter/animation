@@ -27,6 +27,11 @@ const RightSetting: React.FC<RightSettingProps> = (props) => {
           {item.label}
         </div>
       ))}
+      <div className="animation-rate">
+        <button>-1</button>
+        <div>Rate</div>
+        <button>+1</button>
+      </div>
     </Wrapper>
   )
 }
@@ -71,6 +76,25 @@ const Wrapper = styled.div`
       border-color: #409eff;
       color: #fff;
       background-color: #409eff;
+    }
+  }
+
+  .animation-rate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    gap: 8px;
+    button {
+      width: 20px;
+      background-color: #ffffff;
+      border: 1px solid #409eff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background-color: #ccc;
+      }
     }
   }
 `

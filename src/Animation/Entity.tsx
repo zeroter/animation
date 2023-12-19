@@ -11,6 +11,7 @@ type timerType = {
 
 interface EntityProps {
   state: animationType
+  interval: number
 }
 const Entity: React.FC<EntityProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -42,6 +43,8 @@ const Entity: React.FC<EntityProps> = (props) => {
   }, [props.state])
 
   useEffect(() => {
+    clearTimeout(timer.current.enter)
+    clearTimeout(timer.current.leave)
     if (!ref.current) return
     timer.current.enter = setTimeout(() => {
       switchToLeave()
@@ -80,10 +83,12 @@ const Entity: React.FC<EntityProps> = (props) => {
   }, [switchToLeave])
 
   return (
-    <Wrapper ref={ref} className={classNames('animate__animated', getAnimationClass(props.state, 'enter'))}>
-      <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
-      <div className="content">bought 32 min ago</div>
-    </Wrapper>
+    <AnimationWrapper interval={props.interval}>
+      <Wrapper ref={ref} className={classNames('animate__animated', getAnimationClass(props.state, 'enter'))}>
+        <img src="https://res.ushopaid.com/static/logo/logo.svg" alt="" className="img" />
+        <div className="content">bought 32 min ago</div>
+      </Wrapper>
+    </AnimationWrapper>
   )
 }
 
@@ -103,6 +108,14 @@ const getAnimationClass = (state: animationType, mode: 'enter' | 'leave') => {
   return mode === 'enter' ? animationEnterList[state] : animationLeaveList[state]
 }
 
+const AnimationWrapper = styled.div<{ interval: number }>`
+  ${({ interval }) => {
+    return `
+      animation-duration: ${interval}s;
+    `
+  }}
+`
+
 const Wrapper = styled.div`
   position: fixed;
   bottom: 10%;
@@ -114,6 +127,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #ffffff;
   .img {
     width: 20px;
     height: 20px;
