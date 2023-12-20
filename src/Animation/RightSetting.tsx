@@ -118,11 +118,11 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: row;
   gap: 8px;
-  padding: 16px 4px;
+  padding: 6px;
   flex-wrap: wrap;
 
   .item {
-    width: 50px;
+    min-width: 50px;
     height: 24px;
     border-radius: 4px;
     border: 1px solid #ccc;
