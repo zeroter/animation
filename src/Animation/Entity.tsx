@@ -317,7 +317,7 @@ const Wrapper = styled.div`
     margin: 0 10px;
   }
   .content {
-    font-size: 12px;
+    font-size: 13px;
     margin-right: 10px;
     white-space: nowrap;
   }
